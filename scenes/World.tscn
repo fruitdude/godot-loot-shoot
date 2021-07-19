@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/Table.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/drinks/Milk.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/food/Beans.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 25, 1, 25 )
+
+[sub_resource type="ConvexPolygonShape" id=2]
+points = PoolVector3Array( -12.5, 0.5, 12.5, 12.5, 0.5, -12.5, 12.5, 0.5, 12.5, -12.5, 0.5, -12.5, -12.5, -0.5, 12.5, 12.5, -0.5, -12.5, 12.5, -0.5, 12.5, -12.5, -0.5, -12.5, 12.5, 0.5, 12.5, -12.5, 0.5, -12.5, 12.5, 0.5, -12.5, -12.5, 0.5, 12.5, 12.5, -0.5, 12.5, -12.5, -0.5, -12.5, 12.5, -0.5, -12.5, -12.5, -0.5, 12.5, 12.5, 0.5, 12.5, -12.5, -0.5, 12.5, -12.5, 0.5, 12.5, 12.5, -0.5, 12.5, 12.5, 0.5, -12.5, -12.5, -0.5, -12.5, -12.5, 0.5, -12.5, 12.5, -0.5, -12.5 )
+
+[node name="World" type="Spatial"]
+
+[node name="Floor" type="Spatial" parent="."]
+
+[node name="StaticBody" type="StaticBody" parent="Floor"]
+collision_layer = 8
+collision_mask = 39
+
+[node name="MeshInstance" type="MeshInstance" parent="Floor/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Floor/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+shape = SubResource( 2 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.439202, 0, 0.898388, 0, 1, 0, -0.898388, 0, -0.439202, 0, 1.3301, 0 )
+
+[node name="Objects" type="Spatial" parent="."]
+
+[node name="Table" parent="Objects" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.33564, 0, 0 )
+collision_layer = 8
+collision_mask = 39
+
+[node name="Collectables" type="Spatial" parent="."]
+
+[node name="Milk" parent="Collectables" instance=ExtResource( 3 )]
+transform = Transform( 0.75018, 0, 0.661233, 0, 1, 0, -0.661233, 0, 0.75018, -2.41132, 0.921077, 0.202678 )
+
+[node name="Milk2" parent="Collectables" instance=ExtResource( 3 )]
+transform = Transform( -0.578085, 0, 0.815976, 0, 1, 0, -0.815976, 0, -0.578085, -2.19459, 0.921077, 0.448806 )
+
+[node name="Beans" parent="Collectables" instance=ExtResource( 4 )]
+transform = Transform( 0.136373, 0, -0.990658, 0, 1, 0, 0.990658, 0, 0.136373, -2.32836, 0.871733, -0.221007 )

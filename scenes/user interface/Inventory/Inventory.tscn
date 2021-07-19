@@ -1,0 +1,112 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/user interface/inventory/Inventory.gd" type="Script" id=1]
+[ext_resource path="res://assets/user interface/inventory.png" type="Texture" id=2]
+[ext_resource path="res://scripts/user interface/inventory/EquipmentSlots.gd" type="Script" id=3]
+[ext_resource path="res://scripts/user interface/inventory/GridBackpack.gd" type="Script" id=4]
+
+[node name="Inventory" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.25989
+margin_right = 2.25989
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InventoryBase" type="Panel" parent="."]
+self_modulate = Color( 1, 1, 1, 0.588235 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -427.0
+margin_top = -165.0
+margin_right = 376.0
+margin_bottom = 154.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EquipmentSlots" type="Panel" parent="."]
+self_modulate = Color( 0.215686, 0.243137, 0.423529, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 72.4656
+margin_top = -126.5
+margin_right = 300.466
+margin_bottom = 126.5
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HEAD" type="Panel" parent="EquipmentSlots"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -37.1213
+margin_top = -118.157
+margin_right = 37.8787
+margin_bottom = -54.1568
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CHEST" type="Panel" parent="EquipmentSlots"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -35.8787
+margin_top = -46.7929
+margin_right = 39.1213
+margin_bottom = 72.2071
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LEGS" type="Panel" parent="EquipmentSlots"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -95.0
+margin_top = -46.5
+margin_right = -45.0
+margin_bottom = 72.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MAIN_HAND" type="Panel" parent="EquipmentSlots"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -34.0
+margin_top = 82.1863
+margin_right = 34.0
+margin_bottom = 114.186
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridBackPack" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -376.94
+margin_top = -126.5
+margin_right = 71.0598
+margin_bottom = 129.5
+texture = ExtResource( 2 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
