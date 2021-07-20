@@ -1,5 +1,5 @@
 extends TextureRect
-
+#what occupies the grid space ?
 
 var items = []
 
@@ -9,19 +9,34 @@ var grid_width = 0
 var grid_height = 0
 
 
-func create_empty_grid():
-	for x in range(grid_width):
-		grid[x] = {}
-		for y in range(grid_height):
-			grid[x][y] = false  # mark this grid cell as empty (occupied = "false")
-		
-		
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var s = get_grid_size(self)
 	grid_width = s.width
 	grid_height = s.height
 	create_empty_grid()
+	
+	
+func _physics_process(_delta):
+	if Input.is_action_just_pressed("jump"):
+		var item = get_item_under_pos(get_global_mouse_position())
+		if item == null:
+			return
+
+		var item_pos = item.rect_global_position + Vector2(cell_size/2, cell_size/2)
+		var g_pos = pos_to_grid_coord(item_pos)
+		var item_size_in_cells = get_grid_size(item)
+		set_grid_space(g_pos, item_size_in_cells, false)
+		items.remove(items.find(item))
+		item.queue_free()
+		item = null
+		
+
+func create_empty_grid():
+	for x in range(grid_width):
+		grid[x] = {}
+		for y in range(grid_height):
+			grid[x][y] = false  # mark this grid cell as empty (occupied = "false")
 			
 			
 func insert_item(item):
@@ -64,6 +79,7 @@ func set_grid_space(pos, item_size_in_cells, state):
 	for i in range(pos.x, pos.x + item_size_in_cells.width):
 		for j in range(pos.y, pos.y + item_size_in_cells.height):
 			grid[i][j] = state
+			
 	
 		
 func is_grid_space_available(pos, item_size_in_cells):
