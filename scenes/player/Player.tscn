@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://scripts/player/RayCast.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scripts/player/CanvasLayer.gd" type="Script" id=4]
 [ext_resource path="res://scenes/user interface/Inventory/Inventory.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/weapon/Weapon.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scripts/player/Hand.gd" type="Script" id=7]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 1, 1, 1.85 )
@@ -31,15 +32,20 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0 )
 [node name="Camera" type="Camera" parent="Head"]
 cull_mask = 1048573
 
+[node name="Hand" type="Spatial" parent="Head/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, -0.2, 0 )
+script = ExtResource( 7 )
+sway_left = Vector3( 0, 0.025, 0 )
+sway_right = Vector3( 0, -0.025, 0 )
+
+[node name="Weapon" parent="Head/Camera/Hand" instance=ExtResource( 6 )]
+
 [node name="RayCast" type="RayCast" parent="Head/Camera"]
 enabled = true
 cast_to = Vector3( 0, 0, -5 )
 collision_mask = 48
 collide_with_areas = true
 script = ExtResource( 2 )
-
-[node name="Weapon" parent="Head/Camera" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, -0.42, -1.4 )
 
 [node name="ViewportContainer" type="ViewportContainer" parent="Head/Camera"]
 anchor_right = 1.0
@@ -55,6 +61,7 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="GunCamera" type="Camera" parent="Head/Camera/ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0 )
 cull_mask = 2
 
 [node name="ItemDropPosition" type="Position3D" parent="."]
