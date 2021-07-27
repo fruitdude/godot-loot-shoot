@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id=1]
 script/source = "extends Spatial
 
 
@@ -19,14 +19,15 @@ func _ready():
 #	pass
 "
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="CubeMesh" id=2]
 size = Vector3( 0.1, 0.1, 2 )
 
 [node name="Weapon" type="Spatial"]
-script = SubResource( 2 )
+script = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 1 )
+layers = 2
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="Muzzle" type="Position3D" parent="."]

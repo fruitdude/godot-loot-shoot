@@ -23,6 +23,7 @@ var jump_direction = Vector3()
 
 onready var head = $Head
 onready var camera = $Head/Camera
+onready var gun_camera = $Head/Camera/ViewportContainer/Viewport/GunCamera
 onready var jump_timer = $JumpTimer
 
 
@@ -50,15 +51,25 @@ func _walk():
 
 
 func _process(delta):
+	gun_camera.global_transform = camera.global_transform
+	
 	#camera physics interpolation to reduce physics jitter on high refresh-rate monitors
 	if Engine.get_frames_per_second() > Engine.iterations_per_second:
 		camera.set_as_toplevel(true)
 		camera.global_transform.origin = camera.global_transform.origin.linear_interpolate(head.global_transform.origin, cam_accel * delta)
 		camera.rotation.y = rotation.y
 		camera.rotation.x = head.rotation.x
+		
+		gun_camera.set_as_toplevel(true)
+		gun_camera.global_transform.origin = gun_camera.global_transform.origin.linear_interpolate(head.global_transform.origin, cam_accel * delta)
+		gun_camera.rotation.y = rotation.y
+		gun_camera.rotation.x = head.rotation.x
 	else:
 		camera.set_as_toplevel(false)
 		camera.global_transform = head.global_transform
+		
+		gun_camera.set_as_toplevel(false)
+		gun_camera.global_transform = head.global_transform
 
 
 func _physics_process(delta):
