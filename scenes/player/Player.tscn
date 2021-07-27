@@ -67,6 +67,10 @@ cull_mask = 2
 [node name="ItemDropPosition" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, -1 )
 
+[node name="JumpTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 4 )
 
@@ -74,9 +78,5 @@ script = ExtResource( 4 )
 
 [node name="Inventory" parent="CanvasLayer" instance=ExtResource( 5 )]
 visible = false
-
-[node name="JumpTimer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
 
 [connection signal="timeout" from="JumpTimer" to="." method="_on_JumpTimer_timeout"]

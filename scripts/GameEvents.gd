@@ -6,6 +6,7 @@ signal looked_out
 signal interacted
 
 #interface signals
+signal opened_inventory
 signal item_dropped
 signal item_picked_up
 signal item_grabbed

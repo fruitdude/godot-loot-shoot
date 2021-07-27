@@ -4,19 +4,23 @@
 script/source = "extends Spatial
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
+export(NodePath) onready var _muzzle = get_node(_muzzle) as Position3D
+
+var inventory_open : bool = false
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	GameEvents.connect(\"opened_inventory\", self, \"_on_opened_inventory\")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _input(event):
+	if event.is_action_pressed(\"shoot\") and !inventory_open:
+		print(\"shooting\")
+
+
+func _on_opened_inventory(is_inventory_open):
+	print(is_inventory_open)
+	inventory_open = is_inventory_open
 "
 
 [sub_resource type="CubeMesh" id=2]
@@ -24,6 +28,7 @@ size = Vector3( 0.1, 0.1, 2 )
 
 [node name="Weapon" type="Spatial"]
 script = SubResource( 1 )
+_muzzle = NodePath("Muzzle")
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 layers = 2
