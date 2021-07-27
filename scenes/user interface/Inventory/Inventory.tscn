@@ -6,10 +6,10 @@
 [ext_resource path="res://scripts/user interface/inventory/GridBackpack.gd" type="Script" id=4]
 
 [node name="Inventory" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 2.25989
-margin_right = 2.25989
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -101,10 +101,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -376.94
-margin_top = -126.5
-margin_right = 71.0598
-margin_bottom = 129.5
+margin_left = -427.0
+margin_top = -165.0
+margin_right = 376.0
+margin_bottom = 154.0
 texture = ExtResource( 2 )
 script = ExtResource( 4 )
 __meta__ = {

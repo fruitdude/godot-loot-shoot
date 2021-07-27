@@ -3,7 +3,6 @@
 [ext_resource path="res://scenes/user interface/Inventory/ItemBase.gd" type="Script" id=1]
 
 [node name="ItemBase" type="TextureRect"]
-rect_pivot_offset = Vector2( 67.7382, -13.9721 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

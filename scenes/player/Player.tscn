@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://scripts/player/RayCast.gd" type="Script" id=2]
 [ext_resource path="res://scenes/user interface/UI.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/player/CanvasLayer.gd" type="Script" id=4]
 [ext_resource path="res://scenes/user interface/Inventory/Inventory.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/weapon/Weapon.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 1, 1, 1.85 )
@@ -36,6 +37,12 @@ collision_mask = 48
 collide_with_areas = true
 script = ExtResource( 2 )
 
+[node name="Weapon" parent="Head/Camera" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, -0.42, -1.4 )
+
+[node name="ItemDropPosition" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, -1 )
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource( 4 )
 
@@ -44,5 +51,8 @@ script = ExtResource( 4 )
 [node name="Inventory" parent="CanvasLayer" instance=ExtResource( 5 )]
 visible = false
 
-[node name="ItemDropPosition" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, -1 )
+[node name="JumpTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="JumpTimer" to="." method="_on_JumpTimer_timeout"]

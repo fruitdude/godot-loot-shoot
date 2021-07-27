@@ -8,3 +8,4 @@ signal interacted
 #interface signals
 signal item_dropped
 signal item_picked_up
+signal item_grabbed

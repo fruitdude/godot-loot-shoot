@@ -1,7 +1,7 @@
 extends RigidBody
 class_name Drink
 
-export var collectable_name : String 
+export var item_name : String
 
 
 func _ready():

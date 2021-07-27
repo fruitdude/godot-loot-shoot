@@ -2,6 +2,7 @@ extends Control
 
 
 onready var label = $Label
+var item_name = null
 
 
 func _ready():
@@ -12,7 +13,7 @@ func _ready():
 
 func _on_looked_over(object):
 	label.show()
-	label.text = object.collectable_name + "\n" + "F"
+	label.text = str(object) + "\n" + "F"
 
 
 func _on_looked_out():

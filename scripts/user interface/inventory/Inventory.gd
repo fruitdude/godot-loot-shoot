@@ -18,8 +18,8 @@ var last_pos = Vector2()
 func _ready():
 	GameEvents.connect("interacted", self, "_on_interacted")
 	pickup_item("milk")
-	pickup_item("milk")
-	pickup_item("milk")
+
+
 
 
 func _process(_delta):
@@ -30,15 +30,18 @@ func _process(_delta):
 		release(cursor_pos)
 	if item_held != null:
 		item_held.rect_global_position = cursor_pos + item_offset
-	if Input.is_action_just_pressed("drop_item"):
-		drop_item_on_mouse_over(cursor_pos)
+	if item_held:
+		GameEvents.emit_signal("item_grabbed", item_held)
+#		item_held.texture = load(ItemDB.get_item(item_held.item)["asset_horizontal"])
+#	if Input.is_action_just_pressed("drop_item"):
+#		drop_item_on_mouse_over(cursor_pos)
 		
 
 func grab(cursor_pos):
 	var c = get_container_under_cursor(cursor_pos)
 	if c and c.has_method("grab_item"):
 		
-		item_held = c.grab_item(cursor_pos) 
+		item_held = c.grab_item(cursor_pos)
 		if item_held:
 			last_container = c
 			last_pos = item_held.rect_global_position
@@ -82,22 +85,27 @@ func return_item_to_last_slot():
 	item_held = null
 	
 
-func drop_item_on_mouse_over(cursor_pos):
-	var c = get_container_under_cursor(cursor_pos)
-	if c.has_method("grab_item"):
-		var item_hovered = c.grab_item(cursor_pos)
-
-		if item_hovered:
-			var item_id = item_hovered.item
-			GameEvents.emit_signal("item_dropped", item_id)
-			item_hovered.queue_free()
-			item_hovered = null
+#func drop_item_on_mouse_over(cursor_pos):
+#	var c = get_container_under_cursor(cursor_pos)
+#	if c.has_method("grab_item"):
+#		var item_hovered = c.grab_item(cursor_pos)
+#
+#		if item_hovered:
+#			if item_hovered.item:
+#				GameEvents.emit_signal("item_dropped", item_hovered.item)
+#
+##			var item_id = ItemDB.get_item(item_hovered)
+##			item_hovered.set_meta("id", item_id)
+##			
+#
+#			item_hovered.queue_free()
+#			item_hovered = null
 	
 	
 func pickup_item(item_id):
 	var item = item_base.instance()
 	item.set_meta("id", item_id)
-	item.texture = load(ItemDB.get_item(item_id)["asset"])
+	item.texture = load(ItemDB.get_item(item_id)["asset_vertical"])
 	add_child(item)
 	
 	if !grid_bkpk.insert_item_at_first_available_spot(item):
@@ -106,8 +114,9 @@ func pickup_item(item_id):
 	GameEvents.emit_signal("item_picked_up", item_id)
 	return true
 	
-	print("penis")
-	
 	
 func _on_interacted(item_id):
-	pickup_item(item_id.collectable_name)
+	if item_id.item_name:
+		pickup_item(item_id.item_name)
+	else:
+		return

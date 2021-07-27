@@ -1,20 +1,21 @@
 extends Node
 
 const ICON_PATH = "res://assets/icons/"
-const milk_scene = preload("res://scenes/drinks/Milk.tscn")
+const DRINKS_PATH = "res://scenes/drinks/"
+
 
 const ITEMS = {
 	"milk": {
-		"asset": ICON_PATH + "milk.png",
+		"asset_vertical": ICON_PATH + "milk.png",
+		"asset_horizontal": ICON_PATH + "milk_hor.png",
 		"slot": "NONE",
 		"stackable": "FALSE",
-		"scene": "res://scenes/drinks/Milk.tscn"
+		"scene" : DRINKS_PATH + "milk.tscn"
 	},
 	"error": {
-		"asset": ICON_PATH + "error.png",
+		"asset_vertical": ICON_PATH + "error.png",
 		"slot": "NONE",
 		"stackable": "FALSE",
-		"scene": "NONE"
 	},
 }
 

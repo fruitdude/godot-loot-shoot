@@ -27,7 +27,7 @@ extents = Vector3( 0.0472555, 0.0730129, 0.0497311 )
 collision_layer = 32
 collision_mask = 0
 script = ExtResource( 1 )
-collectable_name = "Beans"
+item_name = "beans"
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 2 )
