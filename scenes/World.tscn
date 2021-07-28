@@ -6,17 +6,17 @@
 [ext_resource path="res://scenes/food/Beans.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/wall_material.tres" type="Material" id=5]
 
-[sub_resource type="CubeMesh" id=4]
+[sub_resource type="CubeMesh" id=1]
 material = ExtResource( 5 )
 size = Vector3( 20, 4, 1 )
 
-[sub_resource type="ConvexPolygonShape" id=5]
+[sub_resource type="ConvexPolygonShape" id=2]
 points = PoolVector3Array( -10, 2, 0.5, 10, 2, -0.5, 10, 2, 0.5, -10, 2, -0.5, -10, -2, 0.5, 10, -2, -0.5, 10, -2, 0.5, -10, -2, -0.5, 10, 2, 0.5, -10, 2, -0.5, 10, 2, -0.5, -10, 2, 0.5, 10, -2, 0.5, -10, -2, -0.5, 10, -2, -0.5, -10, -2, 0.5, 10, 2, 0.5, -10, -2, 0.5, -10, 2, 0.5, 10, -2, 0.5, 10, 2, -0.5, -10, -2, -0.5, -10, 2, -0.5, 10, -2, -0.5 )
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="CubeMesh" id=3]
 size = Vector3( 25, 1, 25 )
 
-[sub_resource type="ConvexPolygonShape" id=2]
+[sub_resource type="ConvexPolygonShape" id=4]
 points = PoolVector3Array( -12.5, 0.5, 12.5, 12.5, 0.5, -12.5, 12.5, 0.5, 12.5, -12.5, 0.5, -12.5, -12.5, -0.5, 12.5, 12.5, -0.5, -12.5, 12.5, -0.5, 12.5, -12.5, -0.5, -12.5, 12.5, 0.5, 12.5, -12.5, 0.5, -12.5, 12.5, 0.5, -12.5, -12.5, 0.5, 12.5, 12.5, -0.5, 12.5, -12.5, -0.5, -12.5, 12.5, -0.5, -12.5, -12.5, -0.5, 12.5, 12.5, 0.5, 12.5, -12.5, -0.5, 12.5, -12.5, 0.5, 12.5, 12.5, -0.5, 12.5, 12.5, 0.5, -12.5, -12.5, -0.5, -12.5, -12.5, 0.5, -12.5, 12.5, -0.5, -12.5 )
 
 [node name="World" type="Spatial"]
@@ -50,11 +50,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5 )
 [node name="StaticBody" type="StaticBody" parent="Terrain/Wall"]
 
 [node name="MeshInstance" type="MeshInstance" parent="Terrain/Wall/StaticBody"]
-mesh = SubResource( 4 )
+mesh = SubResource( 1 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Terrain/Wall/StaticBody"]
-shape = SubResource( 5 )
+shape = SubResource( 2 )
 
 [node name="Wall2" type="Spatial" parent="Terrain"]
 transform = Transform( -1.81059e-08, 1, -6.18172e-08, 0.707107, -3.09086e-08, -0.707107, -0.707107, -5.65142e-08, -0.707107, 0, 4.80977, -12.41 )
@@ -62,11 +62,11 @@ transform = Transform( -1.81059e-08, 1, -6.18172e-08, 0.707107, -3.09086e-08, -0
 [node name="StaticBody" type="StaticBody" parent="Terrain/Wall2"]
 
 [node name="MeshInstance" type="MeshInstance" parent="Terrain/Wall2/StaticBody"]
-mesh = SubResource( 4 )
+mesh = SubResource( 1 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Terrain/Wall2/StaticBody"]
-shape = SubResource( 5 )
+shape = SubResource( 2 )
 
 [node name="Floor" type="Spatial" parent="Terrain"]
 
@@ -76,9 +76,9 @@ collision_mask = 39
 
 [node name="MeshInstance" type="MeshInstance" parent="Terrain/Floor/StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
-mesh = SubResource( 1 )
+mesh = SubResource( 3 )
 material/0 = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Terrain/Floor/StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 4 )

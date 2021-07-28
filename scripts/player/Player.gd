@@ -2,7 +2,7 @@ extends KinematicBody
 
 
 var mouse_sensitivity = 1
-var cam_accel = 60
+var cam_accel = 40
 var speed = 4
 var speed_multiplier = 1
 var acceleration = 10
@@ -15,24 +15,25 @@ var gravity_vec = Vector3()
 var movement = Vector3()
 var velocity = Vector3()
 
-var on_ground = false
-var can_jump = false
+var on_ground : bool = false
+var can_jump : bool = false
+var inventory_open : bool = false
 
 var jump_direction = Vector3()
 
 
 onready var head = $Head
 onready var camera = $Head/Camera
-onready var gun_camera = $Head/Camera/ViewportContainer/Viewport/GunCamera
 onready var jump_timer = $JumpTimer
 
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	GameEvents.connect("opened_inventory", self, "_on_opened_inventory")
 
 
 func _input(event):
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and !inventory_open:
 		rotation_degrees.y -= event.relative.x * mouse_sensitivity / 10
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x - event.relative.y * mouse_sensitivity / 10, -70, 80)
 	
@@ -50,28 +51,6 @@ func _walk():
 	direction = direction.rotated(Vector3.UP, rotation.y)
 
 
-func _process(delta):
-	gun_camera.global_transform = camera.global_transform
-	
-	#camera physics interpolation to reduce physics jitter on high refresh-rate monitors
-	if Engine.get_frames_per_second() > Engine.iterations_per_second:
-		camera.set_as_toplevel(true)
-		camera.global_transform.origin = camera.global_transform.origin.linear_interpolate(head.global_transform.origin, cam_accel * delta)
-		camera.rotation.y = rotation.y
-		camera.rotation.x = head.rotation.x
-		
-		gun_camera.set_as_toplevel(true)
-		gun_camera.global_transform.origin = gun_camera.global_transform.origin.linear_interpolate(head.global_transform.origin, cam_accel * delta)
-		gun_camera.rotation.y = rotation.y
-		gun_camera.rotation.x = head.rotation.x
-	else:
-		camera.set_as_toplevel(false)
-		camera.global_transform = head.global_transform
-		
-		gun_camera.set_as_toplevel(false)
-		gun_camera.global_transform = head.global_transform
-
-
 func _physics_process(delta):
 	if is_on_floor():
 		if not on_ground:
@@ -87,7 +66,7 @@ func _physics_process(delta):
 		else:
 			gravity_vec += Vector3.DOWN * gravity * delta
 			
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and !inventory_open:
 		if is_on_floor() and can_jump:
 			jump_direction = direction
 			jump()
@@ -117,3 +96,7 @@ func jump():
 
 func _on_JumpTimer_timeout():
 	can_jump = true
+	
+	
+func _on_opened_inventory(is_inventory_open):
+	inventory_open = is_inventory_open
