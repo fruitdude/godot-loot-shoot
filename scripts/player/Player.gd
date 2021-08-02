@@ -1,13 +1,13 @@
 extends KinematicBody
 
 
-var mouse_sensitivity = .35
-var speed = 4
-var speed_multiplier = 1
-var acceleration = 10
-var gravity = 9.8
-var jump_height = 4
-var stick_amount = 10
+var mouse_sensitivity : float = .35
+var speed : int = 4
+var speed_multiplier : int
+var acceleration : int = 10
+var gravity : float = 9.8
+var jump_height : int = 4
+var stick_amount : int = 10
 
 var direction = Vector3()
 var gravity_vec = Vector3()
@@ -50,6 +50,11 @@ func _input(event):
 func _walk():
 	direction.z = Input.get_action_strength("move_backward") - Input.get_action_strength("move_forward")
 	direction.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	
+	if Input.is_action_pressed("sprint"):
+		speed_multiplier = 2
+	else:
+		speed_multiplier = 1
 	
 	direction = direction.normalized()
 	if direction.z < 0:
