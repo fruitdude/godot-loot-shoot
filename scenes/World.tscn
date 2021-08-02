@@ -90,6 +90,4 @@ shape = SubResource( 7 )
 
 [node name="Spawns" type="Spatial" parent="."]
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-
 [node name="SkyBox" parent="." instance=ExtResource( 5 )]

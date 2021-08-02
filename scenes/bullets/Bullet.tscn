@@ -31,9 +31,10 @@ contact_monitor = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
+linear_damp = 0.0
 script = ExtResource( 1 )
 timer = NodePath("DespawnTimer")
-bullet_dropoff_distance = 10.0
+bullet_dropoff_distance = 150.0
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 2 )

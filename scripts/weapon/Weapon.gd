@@ -4,16 +4,12 @@ extends Spatial
 export(NodePath) onready var _muzzle = get_node(_muzzle) as Position3D
 export(NodePath) onready var _shoot_timer = get_node(_shoot_timer) as Timer
 
-onready var raycast_bullet = preload("res://test/RaycastBullet.tscn")
-onready var bullet = preload("res://scenes/bullets/Bullet.tscn")
-
-#var muzzle_direction
-var bullet_pos : Vector3
-var muzzle_pos : Vector3
-var bullet_speed : float = 5
+var raycast_collision_pos : Vector3
 var inventory_open : bool = false
 var can_shoot : bool = true
 var burst_counter : int = 0
+
+var state = states.AUTO
 
 enum states{
 	SINGLE,
@@ -21,22 +17,15 @@ enum states{
 	AUTO
 }
 
-var state = states.AUTO
-
 
 func _ready():
 	GameEvents.connect("opened_inventory", self, "_on_opened_inventory")
-	
-	
-func _on_bullet_pos_updated(pos):
-	bullet_pos = pos
+	GameEvents.connect("raycast_collision_updated", self, "_on_raycast_collision_updated")
 
 
 func _input(event):
 	if event.is_action_pressed("change_firemode") and !inventory_open:	
 		state += 1
-#		print(state)
-
 		if state > (states.keys().size() - 1):
 			state = 0
 		
@@ -45,42 +34,47 @@ func _input(event):
 #		print(states.keys()[state])	
 		
 	
-		
-		
 func _physics_process(_delta):
 	match state:
 		states.SINGLE:
 			if Input.is_action_just_pressed("shoot") and !inventory_open and can_shoot:
 				can_shoot = false
-				_instance_bullet()
+				_shoot(_muzzle, raycast_collision_pos)
 				_shoot_timer.start()
 		states.BURST:
 			if Input.is_action_just_pressed("shoot") and !inventory_open and can_shoot:
 				_burst()
 		states.AUTO:
 			if Input.is_action_pressed("shoot") and !inventory_open and can_shoot: 
-				_instance_bullet()
 				can_shoot = false
+				_shoot(_muzzle, raycast_collision_pos)
 				_shoot_timer.start()
 				
 				
 func _burst():
 	can_shoot = false
-	_instance_bullet()
+	_shoot(_muzzle, raycast_collision_pos)
 	yield(get_tree().create_timer(0.063), "timeout")
-	_instance_bullet()
+	_shoot(_muzzle, raycast_collision_pos)
 	yield(get_tree().create_timer(0.063), "timeout")
-	_instance_bullet()
+	_shoot(_muzzle, raycast_collision_pos)
 	_shoot_timer.start()
 	
 
-func _instance_bullet():
-	var bullet_instance = bullet.instance()
-	add_child(bullet_instance)
-	bullet_instance.set_as_toplevel(true)
-	bullet_instance.global_transform.origin = _muzzle.global_transform.origin
-	bullet_instance.linear_velocity = _muzzle.global_transform.basis.z * -bullet_speed
-	GameEvents.emit_signal("muzzle_pos_updated", _muzzle.global_transform.origin)
+func _on_raycast_collision_updated(position):
+	raycast_collision_pos = position
+	
+	
+func _shoot(muzzle, raycast_coll_pos):
+	var direct_state = get_world().direct_space_state
+	var collision = direct_state.intersect_ray(muzzle.global_transform.origin, 
+		raycast_coll_pos + ((raycast_coll_pos - muzzle.global_transform.origin).normalized() * 2))
+	
+	if collision:
+		DrawLine3D.DrawLine(muzzle.global_transform.origin, raycast_coll_pos, Color(0, 1, 1), 1)
+		
+	else:
+		print("no collision")
 
 
 func _on_opened_inventory(is_inventory_open):

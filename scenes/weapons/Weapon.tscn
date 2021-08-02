@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scripts/weapon/Weapon.gd" type="Script" id=1]
-[ext_resource path="res://scripts/player/LookAtPosition.gd" type="Script" id=2]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 0.1, 0.1, 1 )
@@ -17,7 +16,6 @@ material/0 = null
 
 [node name="Muzzle" type="Position3D" parent="MeshInstance"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.507997 )
-script = ExtResource( 2 )
 
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 0.063

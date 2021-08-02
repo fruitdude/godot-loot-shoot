@@ -101,6 +101,7 @@ func jump():
 	on_ground = false
 	gravity_vec = Vector3.UP * jump_height
 
+
 #func _on_item_dropped(item_id):
 #	print(item_id)
 #	if item_id == "milk":
@@ -111,7 +112,7 @@ func jump():
 func _on_JumpTimer_timeout():
 	can_jump = true
 	
-	
+
 func _on_opened_inventory(is_inventory_open):
 	inventory_open = is_inventory_open
 
