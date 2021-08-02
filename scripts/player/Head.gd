@@ -4,7 +4,7 @@ extends Spatial
 export(NodePath) onready var hand = get_node(hand) as Spatial
 export(NodePath) onready var hand_location = get_node(hand_location) as Spatial
 
-const SWAY : int = 30
+const SWAY : int = 70
 
 
 func _ready():

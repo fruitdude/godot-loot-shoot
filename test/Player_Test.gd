@@ -26,9 +26,9 @@ export(NodePath) onready var camera = get_node(camera) as Camera
 export(NodePath) onready var jump_timer = get_node(jump_timer) as Timer
 export(NodePath) onready var raycast = get_node(raycast) as RayCast
 
-onready var ray_endpoint = $Head/Camera/Weapon/MeshInstance
-
-var cube = preload("res://test/Cube.tscn")
+var raycast_orign : Vector3
+var raycast_direction : Vector3
+var raycast_length : int
 
 
 func _ready():
@@ -41,8 +41,6 @@ func _input(event):
 		rotation_degrees.y -= event.relative.x * mouse_sensitivity / 10
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x - event.relative.y * mouse_sensitivity / 10, -70, 80)
 	
-	
-
 	direction = Vector3()
 	_walk()
 	
@@ -92,12 +90,6 @@ func _physics_process(delta):
 func jump():
 	on_ground = false
 	gravity_vec = Vector3.UP * jump_height
-
-#func _on_item_dropped(item_id):
-#	print(item_id)
-#	if item_id == "milk":
-#		var item_instance = load(ItemDB.get_item(item_id)["scene"])
-#		item_drop_pos.add_child(item_instance.instance())
 
 
 func _on_JumpTimer_timeout():

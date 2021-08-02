@@ -1,84 +1,90 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/Table.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/drinks/Milk.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/food/Beans.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/wall_material.tres" type="Material" id=5]
 
 [sub_resource type="CubeMesh" id=1]
-material = ExtResource( 5 )
-size = Vector3( 20, 4, 1 )
+size = Vector3( 40, 2, 40 )
 
-[sub_resource type="ConvexPolygonShape" id=2]
-points = PoolVector3Array( -10, 2, 0.5, 10, 2, -0.5, 10, 2, 0.5, -10, 2, -0.5, -10, -2, 0.5, 10, -2, -0.5, 10, -2, 0.5, -10, -2, -0.5, 10, 2, 0.5, -10, 2, -0.5, 10, 2, -0.5, -10, 2, 0.5, 10, -2, 0.5, -10, -2, -0.5, 10, -2, -0.5, -10, -2, 0.5, 10, 2, 0.5, -10, -2, 0.5, -10, 2, 0.5, 10, -2, 0.5, 10, 2, -0.5, -10, -2, -0.5, -10, 2, -0.5, 10, -2, -0.5 )
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 20, 1, 20 )
 
 [sub_resource type="CubeMesh" id=3]
-size = Vector3( 25, 1, 25 )
+size = Vector3( 2, 10, 40 )
 
-[sub_resource type="ConvexPolygonShape" id=4]
-points = PoolVector3Array( -12.5, 0.5, 12.5, 12.5, 0.5, -12.5, 12.5, 0.5, 12.5, -12.5, 0.5, -12.5, -12.5, -0.5, 12.5, 12.5, -0.5, -12.5, 12.5, -0.5, 12.5, -12.5, -0.5, -12.5, 12.5, 0.5, 12.5, -12.5, 0.5, -12.5, 12.5, 0.5, -12.5, -12.5, 0.5, 12.5, 12.5, -0.5, 12.5, -12.5, -0.5, -12.5, 12.5, -0.5, -12.5, -12.5, -0.5, 12.5, 12.5, 0.5, 12.5, -12.5, -0.5, 12.5, -12.5, 0.5, 12.5, 12.5, -0.5, 12.5, 12.5, 0.5, -12.5, -12.5, -0.5, -12.5, -12.5, 0.5, -12.5, 12.5, -0.5, -12.5 )
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 1, 5, 20 )
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 1, 0.6, 0.733333, 1 )
+
+[sub_resource type="CubeMesh" id=6]
+material = SubResource( 5 )
+size = Vector3( 0.1, 5, 2.5 )
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 0.05, 2.5, 1.25 )
 
 [node name="World" type="Spatial"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( -0.439202, 0, 0.898388, 0, 1, 0, -0.898388, 0, -0.439202, 0, 1.3301, 0 )
+transform = Transform( 0.0198079, 0, -0.999804, 0, 1, 0, 0.999804, 0, 0.0198079, 0, 2.28495, 0 )
 
 [node name="Objects" type="Spatial" parent="."]
 
 [node name="Table" parent="Objects" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.33564, 0, 0 )
-collision_layer = 8
-collision_mask = 39
+transform = Transform( 0.749071, 0, 0.662489, 0, 1, 0, -0.662489, 0, 0.749071, 4.141, 0.986503, -1.56775 )
+collision_mask = 47
 
 [node name="Collectables" type="Spatial" parent="Objects"]
+transform = Transform( 0.749071, 0, 0.662489, 0, 1, 0, -0.662489, 0, 0.749071, 5.76203, -0.0687491, -3.00141 )
 
 [node name="Milk" parent="Objects/Collectables" instance=ExtResource( 3 )]
-transform = Transform( 0.75018, 0, 0.661233, 0, 1, 0, -0.661233, 0, 0.75018, -2.41132, 0.921077, 0.202678 )
+transform = Transform( 0.75018, 0, 0.661233, 0, 1, 0, -0.661233, 0, 0.75018, -2.41132, 1.97079, 0.202678 )
 
 [node name="Milk2" parent="Objects/Collectables" instance=ExtResource( 3 )]
-transform = Transform( -0.578085, 0, 0.815976, 0, 1, 0, -0.815976, 0, -0.578085, -2.19459, 0.921077, 0.448806 )
+transform = Transform( -0.578085, 0, 0.815976, 0, 1, 0, -0.815976, 0, -0.578085, -2.19459, 1.97079, 0.448806 )
 
 [node name="Beans" parent="Objects/Collectables" instance=ExtResource( 4 )]
-transform = Transform( 0.136373, 0, -0.990658, 0, 1, 0, 0.990658, 0, 0.136373, -2.32836, 0.871733, -0.221007 )
+transform = Transform( 0.136373, 0, -0.990658, 0, 1, 0, 0.990658, 0, 0.136373, -2.32836, 1.92145, -0.221007 )
 
 [node name="Terrain" type="Spatial" parent="."]
 
-[node name="Wall" type="Spatial" parent="Terrain"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5 )
+[node name="Floor" type="StaticBody" parent="Terrain"]
+collision_layer = 4
 
-[node name="StaticBody" type="StaticBody" parent="Terrain/Wall"]
-
-[node name="MeshInstance" type="MeshInstance" parent="Terrain/Wall/StaticBody"]
+[node name="MeshInstance" type="MeshInstance" parent="Terrain/Floor"]
 mesh = SubResource( 1 )
 material/0 = null
 
-[node name="CollisionShape" type="CollisionShape" parent="Terrain/Wall/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Terrain/Floor"]
 shape = SubResource( 2 )
 
-[node name="Wall2" type="Spatial" parent="Terrain"]
-transform = Transform( -1.81059e-08, 1, -6.18172e-08, 0.707107, -3.09086e-08, -0.707107, -0.707107, -5.65142e-08, -0.707107, 0, 4.80977, -12.41 )
+[node name="Floor2" type="StaticBody" parent="Terrain"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 6, 0 )
+collision_layer = 4
+collision_mask = 63
 
-[node name="StaticBody" type="StaticBody" parent="Terrain/Wall2"]
-
-[node name="MeshInstance" type="MeshInstance" parent="Terrain/Wall2/StaticBody"]
-mesh = SubResource( 1 )
-material/0 = null
-
-[node name="CollisionShape" type="CollisionShape" parent="Terrain/Wall2/StaticBody"]
-shape = SubResource( 2 )
-
-[node name="Floor" type="Spatial" parent="Terrain"]
-
-[node name="StaticBody" type="StaticBody" parent="Terrain/Floor"]
-collision_layer = 8
-collision_mask = 39
-
-[node name="MeshInstance" type="MeshInstance" parent="Terrain/Floor/StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+[node name="MeshInstance" type="MeshInstance" parent="Terrain/Floor2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0529079, -0.0231671, -0.160937 )
 mesh = SubResource( 3 )
-material/0 = ExtResource( 5 )
+material/0 = null
 
-[node name="CollisionShape" type="CollisionShape" parent="Terrain/Floor/StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+[node name="CollisionShape" type="CollisionShape" parent="Terrain/Floor2"]
 shape = SubResource( 4 )
+
+[node name="Floor3" type="StaticBody" parent="Terrain"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4261, 3.67333, 4.16301 )
+collision_layer = 4
+collision_mask = 63
+
+[node name="MeshInstance" type="MeshInstance" parent="Terrain/Floor3"]
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Terrain/Floor3"]
+shape = SubResource( 7 )
+
+[node name="Spawns" type="Spatial" parent="."]

@@ -107,17 +107,11 @@ func pos_to_grid_coord(pos):
 	return results
 	
 
-func get_grid_size(item):
-# return the item's size in units of cell_size
+func get_grid_size(item): # return the item's size in units of cell_size
 	var results = {}
-#	print(results)
 	var s = item.rect_size
-#	print(s)
 	results.width = clamp(int(s.x / cell_size), 1, 500)
-#	print(results.width)
 	results.height = clamp(int(s.y / cell_size), 1, 500)
-#	print(results.height)
-#	print(results)
 	return results
 	
 	
@@ -132,12 +126,12 @@ func insert_item_at_first_available_spot(item):
 
 
 func _on_item_grabbed(item):
+	print(item.item)
 	if Input.is_action_just_pressed("jump") and toggle_item_rotation:
 		_rotate_item(item, "asset_vertical")
 	elif Input.is_action_just_pressed("jump") and not toggle_item_rotation:
 		_rotate_item(item, "asset_horizontal")
 		
-
 
 func _rotate_item(item, image_orientation : String):
 	toggle_item_rotation = !toggle_item_rotation #toggling var between true and false

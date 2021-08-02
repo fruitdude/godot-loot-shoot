@@ -1,17 +1,33 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/weapon/Weapon.gd" type="Script" id=1]
+[ext_resource path="res://scripts/player/LookAtPosition.gd" type="Script" id=2]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 0.1, 0.1, 1 )
 
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 0.1, 0.1, 0.1 )
+
 [node name="Weapon" type="Spatial"]
 script = ExtResource( 1 )
-_muzzle = NodePath("Muzzle")
+_muzzle = NodePath("MeshInstance/Muzzle")
+_shoot_timer = NodePath("ShootTimer")
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )
 material/0 = null
 
-[node name="Muzzle" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.503288 )
+[node name="Muzzle" type="Position3D" parent="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.507997 )
+script = ExtResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="MeshInstance/Muzzle"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.063
+one_shot = true
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]

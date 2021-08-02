@@ -25,7 +25,6 @@ extents = Vector3( 0.054253, 0.140731, 0.0511136 )
 
 [node name="Milk" type="RigidBody"]
 collision_layer = 32
-collision_mask = 8
 contacts_reported = 1
 contact_monitor = true
 script = ExtResource( 1 )

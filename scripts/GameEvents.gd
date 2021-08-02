@@ -10,3 +10,8 @@ signal opened_inventory
 signal item_dropped
 signal item_picked_up
 signal item_grabbed
+signal changed_firemode
+
+#Gameplay Signals
+signal bullet_hit
+signal muzzle_pos_updated
