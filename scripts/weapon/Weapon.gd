@@ -80,6 +80,7 @@ func _instance_bullet():
 	bullet_instance.set_as_toplevel(true)
 	bullet_instance.global_transform.origin = _muzzle.global_transform.origin
 	bullet_instance.linear_velocity = _muzzle.global_transform.basis.z * -bullet_speed
+	GameEvents.emit_signal("muzzle_pos_updated", _muzzle.global_transform.origin)
 
 
 func _on_opened_inventory(is_inventory_open):

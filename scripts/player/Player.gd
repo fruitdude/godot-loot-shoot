@@ -3,7 +3,7 @@ extends KinematicBody
 
 var mouse_sensitivity : float = .35
 var speed : int = 4
-var speed_multiplier : int
+var speed_multiplier : float
 var acceleration : int = 10
 var gravity : float = 9.8
 var jump_height : int = 4
@@ -13,20 +13,17 @@ var direction = Vector3()
 var gravity_vec = Vector3()
 var movement = Vector3()
 var velocity = Vector3()
+var jump_direction = Vector3()
 
 var on_ground : bool = false
 var can_jump : bool = false
 var inventory_open : bool = false
 
-var jump_direction = Vector3()
-
-
 export(NodePath) onready var head = get_node(head) as Spatial
 export(NodePath) onready var camera = get_node(camera) as Camera
 export(NodePath) onready var jump_timer = get_node(jump_timer) as Timer
 export(NodePath) onready var raycast = get_node(raycast) as RayCast
-
-onready var ray_endpoint = $Head/Camera/Weapon/MeshInstance
+export(NodePath) onready var anim_player = get_node(anim_player) as AnimationPlayer
 
 var cube = preload("res://test/Cube.tscn")
 
@@ -41,8 +38,6 @@ func _input(event):
 		rotation_degrees.y -= event.relative.x * mouse_sensitivity / 10
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x - event.relative.y * mouse_sensitivity / 10, -70, 80)
 	
-	
-
 	direction = Vector3()
 	_walk()
 	
@@ -53,12 +48,20 @@ func _walk():
 	
 	if Input.is_action_pressed("sprint"):
 		speed_multiplier = 2
+	elif Input.is_action_just_pressed("crouch"):
+		anim_player.play("CROUCH")
+	elif Input.is_action_pressed("crouch"):
+		speed_multiplier = 0.5
+	elif Input.is_action_just_released("crouch"):
+		anim_player.play_backwards("CROUCH")
 	else:
 		speed_multiplier = 1
+
 	
 	direction = direction.normalized()
-	if direction.z < 0:
-		direction.z = direction.z * speed_multiplier
+	if direction.x != 0 or direction.z != 0:
+		direction = direction * speed_multiplier
+		
 	direction = direction.rotated(Vector3.UP, rotation.y)
 
 
@@ -111,3 +114,8 @@ func _on_JumpTimer_timeout():
 	
 func _on_opened_inventory(is_inventory_open):
 	inventory_open = is_inventory_open
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "CROUCH":
+		anim_player.stop()

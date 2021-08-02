@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/Table.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/drinks/Milk.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/food/Beans.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/SkyBox.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 40, 2, 40 )
@@ -88,3 +89,7 @@ material/0 = null
 shape = SubResource( 7 )
 
 [node name="Spawns" type="Spatial" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+
+[node name="SkyBox" parent="." instance=ExtResource( 5 )]

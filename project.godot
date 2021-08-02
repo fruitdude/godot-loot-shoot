@@ -110,6 +110,11 @@ sprint={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"unicode":0,"echo":false,"script":null)
  ]
 }
+crouch={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777238,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [layer_names]
 
@@ -119,10 +124,6 @@ sprint={
 3d_physics/layer_4="Enemy"
 3d_physics/layer_5="Interactable"
 3d_physics/layer_6="Collectable"
-
-[physics]
-
-common/physics_fps=144
 
 [rendering]
 
