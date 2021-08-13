@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "Food",
 "language": "GDScript",
 "path": "res://scripts/collectables/Food.gd"
+}, {
+"base": "Resource",
+"class": "MagazineValues",
+"language": "GDScript",
+"path": "res://resources/Magazine/Magazine.gd"
 } ]
 _global_script_class_icons={
 "Drink": "",
-"Food": ""
+"Food": "",
+"MagazineValues": ""
 }
 
 [application]
@@ -32,7 +38,6 @@ config/icon="res://icon.png"
 
 [autoload]
 
-ItemDB="*res://scenes/user interface/Inventory/ItemDB.tscn"
 GameEvents="*res://scripts/GameEvents.gd"
 DrawLine3D="*res://scripts/DrawLine3D.gd"
 
@@ -42,6 +47,8 @@ window/size/width=1920
 window/size/height=1080
 window/size/test_width=1280
 window/size/test_height=720
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [input]
 
@@ -113,6 +120,11 @@ sprint={
 crouch={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777238,"unicode":0,"echo":false,"script":null)
+ ]
+}
+reload={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":82,"unicode":0,"echo":false,"script":null)
  ]
 }
 

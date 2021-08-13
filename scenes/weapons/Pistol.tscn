@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/weapon/Weapon.gd" type="Script" id=1]
+[ext_resource path="res://scenes/weapons/glock/Glock.tscn" type="PackedScene" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "SHOT"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mesh/slide:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1.03947, 0 ), Vector3( -0.447, 1.039, 0 ), Vector3( 0, 1.03947, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Mesh:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Mesh:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 22.743 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ false ],
+"method": "_can_shoot"
+}, {
+"args": [ true ],
+"method": "_can_shoot"
+} ]
+}
+
+[node name="Glock" type="Spatial"]
+script = ExtResource( 1 )
+_muzzle = NodePath("Mesh/barrel/Muzzle")
+_anim_player = NodePath("AnimationPlayer")
+max_magazine_capacity = 10
+
+[node name="Mesh" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
+
+[node name="Muzzle" type="Position3D" parent="Mesh/barrel" index="0"]
+transform = Transform( 1, 0, 0, 7.45058e-09, 1, 0, 0, 0, 1, 0.0173618, 0.610498, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/SHOT = SubResource( 1 )
+
+[editable path="Mesh"]

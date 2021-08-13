@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://resources/Magazine/MagazineMesh.tres" type="CubeMesh" id=1]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.0148234, 0.0697359, 0.0326689 )
+
+[node name="Magazine" type="RigidBody"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = ExtResource( 1 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )

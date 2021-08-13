@@ -16,3 +16,4 @@ signal changed_firemode
 signal bullet_hit
 signal muzzle_pos_updated
 signal raycast_collision_updated
+signal ammunition_collected

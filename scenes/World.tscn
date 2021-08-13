@@ -1,10 +1,12 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/Table.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/drinks/Milk.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/food/Beans.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/SkyBox.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/enemies/EnemyDummy.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/ammunition/AmmoCase.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 40, 2, 40 )
@@ -51,6 +53,33 @@ transform = Transform( -0.578085, 0, 0.815976, 0, 1, 0, -0.815976, 0, -0.578085,
 [node name="Beans" parent="Objects/Collectables" instance=ExtResource( 4 )]
 transform = Transform( 0.136373, 0, -0.990658, 0, 1, 0, 0.990658, 0, 0.136373, -2.32836, 1.92145, -0.221007 )
 
+[node name="AmmoCase" parent="Objects/Collectables" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 5.49579, 1.49841, -5.32712 )
+
+[node name="AmmoCase2" parent="Objects/Collectables" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 6.21659, 1.49841, -6.14212 )
+
+[node name="AmmoCase3" parent="Objects/Collectables" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 5.43987, 1.49841, -6.82906 )
+
+[node name="AmmoCase4" parent="Objects/Collectables" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 4.49543, 1.49841, -7.66434 )
+
+[node name="AmmoCase5" parent="Objects/Collectables" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 7.10397, 1.49841, -5.35731 )
+
+[node name="AmmoCase6" parent="Objects/Collectables" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 8.20839, 1.49841, -4.38055 )
+
+[node name="AmmoCase7" parent="Objects/Collectables" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 9.42057, 1.49841, -3.30848 )
+
+[node name="AmmoCase8" parent="Objects/Collectables" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 10.9849, 1.49841, -1.92499 )
+
+[node name="AmmoCase9" parent="Objects/Collectables" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 12.483, 1.49841, -0.600005 )
+
 [node name="Terrain" type="Spatial" parent="."]
 
 [node name="Floor" type="StaticBody" parent="Terrain"]
@@ -88,6 +117,9 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="Terrain/Floor3"]
 shape = SubResource( 7 )
 
-[node name="Spawns" type="Spatial" parent="."]
+[node name="Enemies" type="Spatial" parent="."]
+
+[node name="EnemyDummy" parent="Enemies" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.15456, 2.39261, 0.0376954 )
 
 [node name="SkyBox" parent="." instance=ExtResource( 5 )]

@@ -1,8 +1,15 @@
 extends KinematicBody
 
 
-var mouse_sensitivity : float = .35
-var speed : int = 4
+export(NodePath) onready var head = get_node(head) as Spatial
+export(NodePath) onready var camera = get_node(camera) as Camera
+export(NodePath) onready var jump_timer = get_node(jump_timer) as Timer
+export(NodePath) onready var raycast = get_node(raycast) as RayCast
+export(NodePath) onready var anim_player = get_node(anim_player) as AnimationPlayer
+export(NodePath) onready var tween = get_node(tween) as Tween
+
+var mouse_sensitivity : float = 10.0
+var speed : int = 7
 var speed_multiplier : float
 var acceleration : int = 10
 var gravity : float = 9.8
@@ -14,19 +21,14 @@ var gravity_vec = Vector3()
 var movement = Vector3()
 var velocity = Vector3()
 var jump_direction = Vector3()
+var mous_delta : Vector2 = Vector2()
 
 var on_ground : bool = false
 var can_jump : bool = false
 var inventory_open : bool = false
 
-export(NodePath) onready var head = get_node(head) as Spatial
-export(NodePath) onready var camera = get_node(camera) as Camera
-export(NodePath) onready var jump_timer = get_node(jump_timer) as Timer
-export(NodePath) onready var raycast = get_node(raycast) as RayCast
-export(NodePath) onready var anim_player = get_node(anim_player) as AnimationPlayer
-
-var cube = preload("res://test/Cube.tscn")
-
+var can_lean_left = true
+var can_lean_right = true
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -35,8 +37,9 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseMotion and !inventory_open:
-		rotation_degrees.y -= event.relative.x * mouse_sensitivity / 10
-		head.rotation_degrees.x = clamp(head.rotation_degrees.x - event.relative.y * mouse_sensitivity / 10, -70, 80)
+		mous_delta = event.relative
+#		rotation_degrees.y -= event.relative.x * mouse_sensitivity / 10
+#		head.rotation_degrees.x = clamp(head.rotation_degrees.x - event.relative.y * mouse_sensitivity / 10, -70, 80)
 	
 	direction = Vector3()
 	_walk()
@@ -57,7 +60,7 @@ func _walk():
 	else:
 		speed_multiplier = 1
 
-	
+
 	direction = direction.normalized()
 	if direction.x != 0 or direction.z != 0:
 		direction = direction * speed_multiplier
@@ -66,6 +69,8 @@ func _walk():
 
 
 func _physics_process(delta):
+	head_rotation(delta)
+	
 	if is_on_floor():
 		if not on_ground:
 			jump_timer.start()
@@ -97,18 +102,19 @@ func _physics_process(delta):
 	movement.y = gravity_vec.y
 	movement = move_and_slide(movement, Vector3.UP)
 	
+
+func head_rotation(delta):
+	head.rotation_degrees.x -= mous_delta.y * mouse_sensitivity * delta
+	head.rotation_degrees.x = clamp(head.rotation_degrees.x, -70, 80)
+	rotation_degrees.y -= mous_delta.x * mouse_sensitivity * delta
+	mous_delta = Vector2()
+	
+	
 func jump():
 	on_ground = false
 	gravity_vec = Vector3.UP * jump_height
-
-
-#func _on_item_dropped(item_id):
-#	print(item_id)
-#	if item_id == "milk":
-#		var item_instance = load(ItemDB.get_item(item_id)["scene"])
-#		item_drop_pos.add_child(item_instance.instance())
-
-
+		
+	
 func _on_JumpTimer_timeout():
 	can_jump = true
 	

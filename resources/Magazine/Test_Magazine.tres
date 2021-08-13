@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://resources/Magazine/Magazine.gd" type="Script" id=1]
+[ext_resource path="res://resources/Magazine/MagazineMesh.tres" type="CubeMesh" id=2]
+[ext_resource path="res://scenes/weapons/magazines/Magazine.tscn" type="PackedScene" id=3]
+
+[resource]
+script = ExtResource( 1 )
+magazine_scene = ExtResource( 3 )
+max_bullet_capacity = 30
+mesh_instance = ExtResource( 2 )
